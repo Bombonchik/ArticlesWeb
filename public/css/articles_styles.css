@@ -129,3 +129,28 @@ body {
     z-index: 1000;
     border-radius: 5px;
 }
+
+.article-tags {
+    margin: 5px 0; 
+}
+
+.tag {
+    background: #f0f0f0; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    margin-right: 4px; 
+    display: inline-block; 
+    text-align: left;
+}
+
+select#tagFilter {
+    padding: 8px 16px;
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    background-color: white;
+    font-size: 16px; 
+    margin-bottom: 20px; 
+    cursor: pointer;
+    appearance: none; 
+}   
+

@@ -35,6 +35,14 @@
 }
 
 .article-edit-button {
+    text-align: left;
+}
+
+.back-to-articles-button {
+    text-align: right;
+}
+
+.article-edit-button {
     background-color: #007bff;
 }
 
@@ -48,4 +56,22 @@
 
 .back-to-articles-button:hover {
     background-color: #545b62;
+}
+
+.tag {
+    display: inline-block; 
+    margin-right: 5px; 
+}
+
+.tags-container {
+    margin-bottom: 10px;
+}
+
+.tag {
+    margin-right: 5px;
+    background: #f0f0f0; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    display: inline-block; 
+    text-align: left;
 }

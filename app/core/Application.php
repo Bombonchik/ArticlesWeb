@@ -1,6 +1,7 @@
 <?php
 require_once 'Database.php';
 require_once __DIR__ . '/../controllers/ArticlesController.php';
+require_once __DIR__ . '/../controllers/TagsController.php';
 
 class Application {
     public function __construct() {
@@ -21,17 +22,18 @@ class Application {
         
         $request = $pathComponents[0] ?? ''; 
         $id = $pathComponents[1] ?? null;
+        $selectedTag = (isset($_GET['tag']) && strlen($_GET['tag']) <= 32) ? $_GET['tag'] : null;
 
-        $this->routeToController($request, $id);
+        $this->routeToController($request, $id, $selectedTag);
     }
 
-    private function routeToController($request, $id) {
+    private function routeToController($request, $id, $selectedTag) {
         switch ($request) {
             case 'article':
-                (new ArticlesController())->detail($id);
+                (new ArticlesController())->detail($id, new TagsController());
                 break;
             case 'article-edit':
-                (new ArticlesController())->edit($id);
+                (new ArticlesController())->edit($id, new TagsController());
                 break;
             case 'article-delete':
                 (new ArticlesController())->delete($id);
@@ -40,8 +42,14 @@ class Application {
                 (new ArticlesController())->create();
                 break;
             default:
-                (new ArticlesController())->index();
-                break;
+                switch ($selectedTag) {
+                    case null:
+                        (new ArticlesController())->index(new TagsController());
+                        break;
+                    default:
+                        (new ArticlesController())->indexWithTag($selectedTag, new TagsController());
+                            break;
+                }
         }
     }
 

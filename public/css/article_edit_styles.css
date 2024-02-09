@@ -57,3 +57,73 @@
 .back-button:hover {
     background-color: #d32f2f;
 }
+
+.tag {
+    margin-right: 5px;
+    background: #f0f0f0; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    display: inline-block; 
+    text-align: left;
+}
+
+.tags-section {
+    display: block; 
+}
+
+.tags-area {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 100%; 
+}
+
+.tags-container {
+    margin-bottom: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.add-tag-btn {
+    margin-left: auto; 
+    padding: 5px 20px;
+    background-color: #1782c4;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 20px;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(241, 236, 236);
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 5px;
+}
+
+#addButton {
+    padding: 5px 28px;
+    background-color: #4c66af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+#cancelButton {
+    padding: 5px 18px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}

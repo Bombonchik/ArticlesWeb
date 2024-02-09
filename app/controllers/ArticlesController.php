@@ -3,18 +3,6 @@ require_once __DIR__ . '/../core/BaseController.php';
 require_once __DIR__ . '/../models/Article.php';
 
 class ArticlesController extends BaseController {
-    public function index() {
-        $perPage = 10; // Number of articles per page
-        $articleModel = new Article();
-        $articlesCount = $articleModel->getCount();
-        $pagesCount = max(ceil($articlesCount / $perPage), 1);
-        $currentPage = $this->getCurrentPage($pagesCount);
-        $articles = $articleModel->getArticlesByPage($currentPage, $perPage);
-        $this->render('articles', ['articles' => $articles,
-                                    'baseUrl' => $this->getBaseUrl(),
-                                    'pagesCount' => $pagesCount, 
-                                    'currentPage' => $currentPage]);
-    }
 
     private function getCurrentPage($pagesCount) {
         $currentPage = filter_var($_GET['p'] ?? 1, FILTER_VALIDATE_INT, [
@@ -34,26 +22,34 @@ class ArticlesController extends BaseController {
         return $currentPage;
     }
 
-    public function detail($id) {
+    public function detail($id, TagsController $tagsController) {
         $baseUrl = $this->getBaseUrl();
         $article = (new Article())->getById($id);
-        $this->render('article_detail', ['article' => $article, 'baseUrl' => $baseUrl, 'id' => $id]);
+        $articleTags = $tagsController->getTagsForArticle($id);
+        $this->render('article_detail', ['article' => $article, 'baseUrl' => $baseUrl, 
+                                        'id' => $id, 'articleTags' => $articleTags]);
     }
 
-    public function edit($id) {
-        $article = (new Article())->getById($id);
+    public function edit($id, TagsController $tagsController) {
+
+        $articleModel = new Article();
+        $article = $articleModel->getById($id);
         $baseUrl = $this->getBaseUrl();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $updatedName = $_POST['name'];
             $updatedContent = $_POST['content'];
             if (!empty($updatedName)) {
-                (new Article())->update($id, $updatedName, $updatedContent);
+                $articleModel->update($id, $updatedName, $updatedContent);
+                $tagsController->updateTagsForArticle($id);
                 header("Location: ".$baseUrl."articles");
                 exit;
             }
             echo "Article name cannot be empty.";
         }
-        $this->render('article_edit', ['article' => $article, 'baseUrl' => $baseUrl]);
+        else {
+            $articleTags = $tagsController->getTagsForArticle($id);
+            $this->render('article_edit', ['article' => $article, 'baseUrl' => $baseUrl, 'articleTags' => $articleTags]);
+        }
     }
 
     public function delete($id) {
@@ -67,6 +63,38 @@ class ArticlesController extends BaseController {
             http_response_code(500); // Internal Server Error
             echo json_encode(['error' => 'Failed to delete article']);
         }
+    }
+
+    public function index(TagsController $tagsController) {
+        $perPage = 10; // Number of articles per page
+        $articleModel = new Article();
+        $articlesCount = $articleModel->getCount();
+        $allTags = $tagsController->getAllTags();
+        $pagesCount = max(ceil($articlesCount / $perPage), 1);
+        $currentPage = $this->getCurrentPage($pagesCount);
+        $articles = $articleModel->getArticlesByPage($currentPage, $perPage);
+        $this->render('articles', ['articles' => $articles,
+                                    'baseUrl' => $this->getBaseUrl(),
+                                    'pagesCount' => $pagesCount, 
+                                    'currentPage' => $currentPage,
+                                    'allTags' => $allTags,]);
+    }
+    
+    public function indexWithTag($tag, TagsController $tagsController){
+        $perPage = 10; // Number of articles per page
+        $articleModel = new Article();
+        $articleIds = $tagsController->getArticleIdsForTag($tag);
+        $allTags = $tagsController->getAllTags();
+        $articlesCount = count($articleIds);
+        $pagesCount = max(ceil($articlesCount / $perPage), 1);
+        $currentPage = $this->getCurrentPage($pagesCount);
+        $articles = ($articlesCount > 0) ? $articleModel->getArticlesByPageById($currentPage, $perPage, $articleIds) : [];
+        $this->render('articles', ['articles' => $articles,
+                                    'baseUrl' => $this->getBaseUrl(),
+                                    'pagesCount' => $pagesCount, 
+                                    'currentPage' => $currentPage,
+                                    'allTags' => $allTags,
+                                    ]);
     }
 
     public function create() {

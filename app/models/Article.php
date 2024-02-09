@@ -12,6 +12,21 @@ class Article {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getArticlesByPageById($page, $perPage, $articleIds) {
+        $pdo = Database::getInstance();
+        $offset = ($page - 1) * $perPage;
+        
+        // Convert the array of IDs into a comma-separated string
+        $idsString = implode(',', array_map('intval', $articleIds));
+
+        // Prepare the SQL query with the IDs condition
+        $stmt = $pdo->prepare("SELECT * FROM articles WHERE id IN ($idsString) ORDER BY id DESC LIMIT :offset, :perPage");
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getCount() {
         $pdo = Database::getInstance();
         $stmt = $pdo->query('SELECT COUNT(*) FROM articles');

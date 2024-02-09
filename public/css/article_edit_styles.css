@@ -1,0 +1,59 @@
+/* Article Edit Page Styles */
+.article-edit-container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 3px 4px rgba(0,0,0,0.1);
+}
+
+.article-edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.article-edit-form label {
+    font-weight: bold;
+}
+
+.article-edit-form input[type="text"],
+.article-edit-form textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.article-edit-form .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.save-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.back-button {
+    padding: 10px 20px;
+    background-color: #f53e30;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 40px;
+}
+
+.save-button:hover {
+    background-color: #2d7e30;
+}
+
+.back-button:hover {
+    background-color: #d32f2f;
+}

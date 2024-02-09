@@ -1,0 +1,131 @@
+/* This file contains the styles for the articles page */
+.article-list-container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #fff;
+    box-shadow: 0 3px 4px rgba(0,0,0,0.1);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+.article-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.article-list-container h1 {
+    color: #333;
+    text-align: center;
+}
+
+.article-list {
+    list-style-type: none;
+    padding: 0;
+}
+.article-action.delete {
+    padding: 10px 15px;
+    font-size: 16px; 
+    color: #ff4d4b; 
+    border: none; 
+    border-radius: 15px; 
+    cursor: pointer;
+}
+
+.article-name {
+    flex-grow: 1;
+}
+
+.article-list li a,
+.article-list li button {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #007BFF;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.article-list li a:hover,
+.article-list li button:hover {
+    text-decoration: underline;
+}
+
+#createButton {
+    padding: 5px 18px;
+    background-color: #4c66af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+#cancelButton {
+    padding: 5px 18px;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.pagination a {
+    padding: 5px 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #007bff;
+    border: 1px solid #dee2e6;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.page-count-create {
+    display: flex;
+    align-items: center;
+}
+
+.page-count {
+    margin-right: 15px; 
+}
+
+.create-article-button {
+    padding: 10px 20px;
+    background-color: #4c66af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 40px;
+}
+
+.create-article-button:hover {
+    background-color: #304a8f;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(241, 236, 236);
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    border-radius: 5px;
+}
